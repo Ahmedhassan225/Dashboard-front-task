@@ -1,0 +1,84 @@
+<section class="tasks">
+  <header class="tasks__header">
+    <div>
+      <p class="eyebrow">Tasks</p>
+      <h1>Kanban Board</h1>
+      <p class="subhead">Drag tasks between columns or create new ones.</p>
+    </div>
+    <button class="btn primary" type="button" (click)="openCreate()">Add Task</button>
+  </header>
+
+  @if (formVisible()) {
+  <section class="form-panel">
+    <header>
+      <h2>{{ isEditing() ? 'Edit Task' : 'New Task' }}</h2>
+      <p>Keep the status, priority, and description updated.</p>
+    </header>
+
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <div class="grid">
+        <label>
+          Title
+          <input type="text" formControlName="title" placeholder="Add a short task title" />
+          @if (form.controls.title.touched && form.controls.title.invalid) {
+          <span class="error">
+            Title is required (max 80 characters).
+          </span>
+          }
+        </label>
+        <label>
+          Status
+          <select formControlName="status">
+            <option value="todo">Todo</option>
+            <option value="in_progress">In Progress</option>
+            <option value="done">Done</option>
+          </select>
+        </label>
+        <label>
+          Priority
+          <select formControlName="priority">
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+          </select>
+        </label>
+        <label class="wide">
+          Description
+          <textarea rows="3" formControlName="description"></textarea>
+        </label>
+      </div>
+
+      <div class="actions">
+        <button class="btn ghost" type="button" (click)="cancelForm()">Cancel</button>
+        <button class="btn primary" type="submit">
+          {{ isEditing() ? 'Save Changes' : 'Create Task' }}
+        </button>
+      </div>
+    </form>
+  </section>
+  }
+
+  <section class="board" cdkDropListGroup>
+    @for (column of columns(); track column.id) {
+    <section class="column">
+      <header>
+        <h3>{{ column.title }}</h3>
+        <span>{{ column.tasks.length }} tasks</span>
+      </header>
+
+      <div class="dropzone" cdkDropList [id]="column.id" [cdkDropListData]="column.tasks"
+        [cdkDropListEnterPredicate]="canEnter" (cdkDropListDropped)="drop($event)">
+        @for (task of column.tasks; track task.id) {
+        <div class="drag-item" cdkDrag [cdkDragData]="task">
+          <div class="drag-handle" cdkDragHandle>Drag</div>
+          <app-task-card [task]="task" (edit)="startEdit($event)" (remove)="deleteTask($event)"></app-task-card>
+          <ng-template cdkDragPlaceholder>
+            <div class="placeholder"></div>
+          </ng-template>
+        </div>
+        }
+      </div>
+    </section>
+    }
+  </section>
+</section>

@@ -1,6 +1,6 @@
-# Code
+# Angular Dashboard
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.1.3.
+Modern Angular 21 dashboard showcasing Signals, zoneless change detection, routing, charts, and a drag-and-drop kanban board.
 
 ## Development server
 
@@ -11,6 +11,27 @@ ng serve
 ```
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+
+## Mock data
+
+The requirements include a mock data generator in `doc/test/generate-mock-data.js`.
+
+Run it from the repository root:
+
+```bash
+node doc/test/generate-mock-data.js
+```
+
+This will output JSON files under `doc/test/data-fetching/`. The app currently seeds data from `src/app/data/mock-tasks.ts`.
+
+## Architecture highlights
+
+- Standalone components, no NgModules.
+- Zoneless change detection via `provideZonelessChangeDetection()`.
+- Signals-first state in `src/app/services/task.service.ts`.
+- Lazy-loaded `tasks` feature route.
+- Chart.js + ng2-charts integration for dashboard data visualization.
+- Angular CDK drag-and-drop for the kanban board.
 
 ## Code scaffolding
 

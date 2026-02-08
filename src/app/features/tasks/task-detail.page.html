@@ -1,0 +1,68 @@
+@if (task(); as selected) {
+<section class="task-detail">
+  <header>
+    <div>
+      <p class="eyebrow">Task detail</p>
+      <h1>{{ selected.title }}</h1>
+      <p class="subhead">Last updated {{ selected.updatedAt | date:'mediumDate' }}</p>
+    </div>
+    <a class="btn ghost" routerLink="/tasks">Back to board</a>
+  </header>
+
+  <article class="details">
+    <div class="summary">
+      <p>Status: <strong>{{ statusLabels[selected.status] }}</strong></p>
+      @if (selected.priority) {
+      <p>Priority: <strong>{{ selected.priority }}</strong></p>
+      }
+      <p>Created: <strong>{{ selected.createdAt | date:'mediumDate' }}</strong></p>
+      @if (selected.dueDate) {
+      <p>Due: <strong>{{ selected.dueDate | date:'mediumDate' }}</strong></p>
+      }
+      @if (selected.tags?.length) {
+      <div class="tags">
+        @for (tag of selected.tags; track tag) {
+        <span>{{ tag }}</span>
+        }
+      </div>
+      }
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="save()">
+      <label>
+        Title
+        <input type="text" formControlName="title" />
+      </label>
+      <label>
+        Status
+        <select formControlName="status">
+          <option value="todo">Todo</option>
+          <option value="in_progress">In Progress</option>
+          <option value="done">Done</option>
+        </select>
+      </label>
+      <label>
+        Priority
+        <select formControlName="priority">
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
+        </select>
+      </label>
+      <label>
+        Description
+        <textarea rows="4" formControlName="description"></textarea>
+      </label>
+
+      <div class="actions">
+        <button class="btn primary" type="submit">Save Changes</button>
+      </div>
+    </form>
+  </article>
+</section>
+} @else {
+<section class="missing">
+  <p>Task not found.</p>
+  <a class="btn ghost" routerLink="/tasks">Return to board</a>
+</section>
+}

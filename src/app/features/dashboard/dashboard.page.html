@@ -1,0 +1,64 @@
+<section class="dashboard">
+  <header class="dashboard__header">
+    <div>
+      <p class="eyebrow">Overview</p>
+      <h1>Project Dashboard</h1>
+      <p class="subhead">Track your workload, progress, and team activity.</p>
+    </div>
+  </header>
+
+  <section class="stats-grid">
+    <article class="stat-card">
+      <p class="label">Total Tasks</p>
+      <h2>{{ stats().total }}</h2>
+      <span class="badge">All statuses</span>
+    </article>
+    <article class="stat-card accent">
+      <p class="label">Todo</p>
+      <h2>{{ stats().todo }}</h2>
+      <span class="badge">Planned work</span>
+    </article>
+    <article class="stat-card warm">
+      <p class="label">In Progress</p>
+      <h2>{{ stats().inProgress }}</h2>
+      <span class="badge">Active tasks</span>
+    </article>
+    <article class="stat-card success">
+      <p class="label">Done</p>
+      <h2>{{ stats().done }}</h2>
+      <span class="badge">Completed</span>
+    </article>
+  </section>
+
+  <section class="charts-grid">
+    <article class="chart-card">
+      <header>
+        <h3>Tasks by status</h3>
+        <p>Live status mix from your board.</p>
+      </header>
+      <div class="chart">
+        <canvas
+          baseChart
+          [data]="statusChartData()"
+          [type]="'doughnut'"
+          [options]="doughnutOptions"
+        ></canvas>
+      </div>
+    </article>
+
+    <article class="chart-card">
+      <header>
+        <h3>Tasks created this week</h3>
+        <p>Signals drive immediate updates.</p>
+      </header>
+      <div class="chart">
+        <canvas
+          baseChart
+          [data]="trendChartData()"
+          [type]="'line'"
+          [options]="lineOptions"
+        ></canvas>
+      </div>
+    </article>
+  </section>
+</section>
