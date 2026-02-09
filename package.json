@@ -8,7 +8,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "generate:mock-data": "node ../doc/test/generate-mock-data.js",
-    "github-build": "ng build --configuration production --base-href 'https://Ahmedhassan225.github.io/Dashboard-front-task/'"
+    "github-build": "ng build --configuration production --base-href /Dashboard-front-task/",
+    "github-deploy": "angular-cli-ghpages --dir=dist/code/browser"
   },
   "prettier": {
     "printWidth": 100,
@@ -44,6 +45,8 @@
     "@angular/cli": "^21.1.3",
     "@angular/compiler-cli": "^21.1.0",
     "@angular/material": "^21.1.3",
+    "angular-cli-ghpages": "^3.0.2",
+    "trim-repeated": "^2.0.0",
     "typescript": "~5.9.2"
   }
 }
