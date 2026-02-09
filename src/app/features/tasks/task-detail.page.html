@@ -1,68 +1,76 @@
 @if (task(); as selected) {
 <section class="task-detail">
-  <header>
-    <div>
-      <p class="eyebrow">Task detail</p>
-      <h1>{{ selected.title }}</h1>
-      <p class="subhead">Last updated {{ selected.updatedAt | date:'mediumDate' }}</p>
-    </div>
-    <a class="btn ghost" routerLink="/tasks">Back to board</a>
-  </header>
+  <app-page-header eyebrow="Task detail" [title]="selected.title"
+    [subhead]="'Last updated ' + (selected.updatedAt | date:'mediumDate')">
+    <button actions mat-button routerLink="/tasks">Back to board</button>
+  </app-page-header>
 
-  <article class="details">
-    <div class="summary">
-      <p>Status: <strong>{{ statusLabels[selected.status] }}</strong></p>
-      @if (selected.priority) {
-      <p>Priority: <strong>{{ selected.priority }}</strong></p>
-      }
-      <p>Created: <strong>{{ selected.createdAt | date:'mediumDate' }}</strong></p>
-      @if (selected.dueDate) {
-      <p>Due: <strong>{{ selected.dueDate | date:'mediumDate' }}</strong></p>
-      }
-      @if (selected.tags?.length) {
-      <div class="tags">
-        @for (tag of selected.tags; track tag) {
-        <span>{{ tag }}</span>
+  <mat-card class="task-detail__card">
+    <mat-card-content>
+      <div class="summary">
+        <mat-list>
+          <mat-list-item>Status: <strong>{{ statusLabels[selected.status] }}</strong></mat-list-item>
+          @if (selected.priority) {
+          <mat-list-item>Priority: <strong>{{ selected.priority }}</strong></mat-list-item>
+          }
+          <mat-list-item>Created: <strong>{{ selected.createdAt | date:'mediumDate' }}</strong></mat-list-item>
+          @if (selected.dueDate) {
+          <mat-list-item>Due: <strong>{{ selected.dueDate | date:'mediumDate' }}</strong></mat-list-item>
+          }
+        </mat-list>
+        @if (selected.tags?.length) {
+        <mat-chip-set class="tags">
+          @for (tag of selected.tags; track tag) {
+          <mat-chip>{{ tag }}</mat-chip>
+          }
+        </mat-chip-set>
         }
       </div>
-      }
-    </div>
 
-    <form [formGroup]="form" (ngSubmit)="save()">
-      <label>
-        Title
-        <input type="text" formControlName="title" />
-      </label>
-      <label>
-        Status
-        <select formControlName="status">
-          <option value="todo">Todo</option>
-          <option value="in_progress">In Progress</option>
-          <option value="done">Done</option>
-        </select>
-      </label>
-      <label>
-        Priority
-        <select formControlName="priority">
-          <option value="low">Low</option>
-          <option value="medium">Medium</option>
-          <option value="high">High</option>
-        </select>
-      </label>
-      <label>
-        Description
-        <textarea rows="4" formControlName="description"></textarea>
-      </label>
+      <form [formGroup]="form" (ngSubmit)="save()" class="task-form">
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Title</mat-label>
+          <input matInput formControlName="title" />
+          @if (form.controls.title.touched && form.controls.title.invalid) {
+          <mat-error>
+            Title is required (max 80 characters).
+          </mat-error>
+          }
+        </mat-form-field>
 
-      <div class="actions">
-        <button class="btn primary" type="submit">Save Changes</button>
-      </div>
-    </form>
-  </article>
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Status</mat-label>
+          <mat-select formControlName="status">
+            <mat-option value="todo">Todo</mat-option>
+            <mat-option value="in_progress">In Progress</mat-option>
+            <mat-option value="done">Done</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Priority</mat-label>
+          <mat-select formControlName="priority">
+            <mat-option color="primary" value="low">Low</mat-option>
+            <mat-option value="medium">Medium</mat-option>
+            <mat-option value="high">High</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Description</mat-label>
+          <textarea matInput rows="4" formControlName="description"></textarea>
+        </mat-form-field>
+
+        <div class="actions">
+          <button mat-flat-button color="primary" type="submit" [disabled]="form.invalid">Save Changes</button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
 </section>
 } @else {
 <section class="missing">
   <p>Task not found.</p>
-  <a class="btn ghost" routerLink="/tasks">Return to board</a>
+  <button mat-button routerLink="/tasks">Return to board</button>
 </section>
 }

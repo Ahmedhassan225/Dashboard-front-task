@@ -3,6 +3,14 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatListModule } from '@angular/material/list';
+import { PageHeader } from '../../shared/components/page-header/page-header';
 import { Task, TaskPriority, TaskStatus, TASK_STATUS_LABELS } from '../../models/task.model';
 import { TaskService } from '../../services/task.service';
 
@@ -15,7 +23,19 @@ type TaskDetailForm = {
 
 @Component({
   selector: 'app-task-detail',
-  imports: [RouterLink, ReactiveFormsModule, DatePipe],
+  imports: [
+    RouterLink,
+    ReactiveFormsModule,
+    DatePipe,
+    MatButtonModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatChipsModule,
+    MatListModule,
+    PageHeader
+  ],
   templateUrl: './task-detail.page.html',
   styleUrl: './task-detail.page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush

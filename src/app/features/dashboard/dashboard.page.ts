@@ -1,11 +1,13 @@
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { MatCardModule } from '@angular/material/card';
+import { PageHeader } from '../../shared/components/page-header/page-header';
 import { BaseChartDirective } from 'ng2-charts';
 import { ChartConfiguration } from 'chart.js';
 import { TaskService } from '../../services/task.service';
 
 @Component({
   selector: 'app-dashboard-page',
-  imports: [BaseChartDirective],
+  imports: [BaseChartDirective, MatCardModule, PageHeader],
   templateUrl: './dashboard.page.html',
   styleUrl: './dashboard.page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush

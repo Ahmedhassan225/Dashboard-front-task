@@ -1,64 +1,78 @@
 <section class="dashboard">
-  <header class="dashboard__header">
-    <div>
-      <p class="eyebrow">Overview</p>
-      <h1>Project Dashboard</h1>
-      <p class="subhead">Track your workload, progress, and team activity.</p>
-    </div>
-  </header>
+  <app-page-header
+    eyebrow="Overview"
+    title="Project Dashboard"
+    subhead="Track your workload, progress, and team activity."
+  ></app-page-header>
 
   <section class="stats-grid">
-    <article class="stat-card">
-      <p class="label">Total Tasks</p>
-      <h2>{{ stats().total }}</h2>
-      <span class="badge">All statuses</span>
-    </article>
-    <article class="stat-card accent">
-      <p class="label">Todo</p>
-      <h2>{{ stats().todo }}</h2>
-      <span class="badge">Planned work</span>
-    </article>
-    <article class="stat-card warm">
-      <p class="label">In Progress</p>
-      <h2>{{ stats().inProgress }}</h2>
-      <span class="badge">Active tasks</span>
-    </article>
-    <article class="stat-card success">
-      <p class="label">Done</p>
-      <h2>{{ stats().done }}</h2>
-      <span class="badge">Completed</span>
-    </article>
+    <mat-card class="stat-card">
+      <mat-card-header>
+        <mat-card-title>{{ stats().total }}</mat-card-title>
+        <mat-card-subtitle>Total Tasks</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-actions>
+        <span class="badge">All statuses</span>
+      </mat-card-actions>
+    </mat-card>
+    <mat-card class="stat-card accent">
+      <mat-card-header>
+        <mat-card-title>{{ stats().todo }}</mat-card-title>
+        <mat-card-subtitle>Todo</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-actions>
+        <span class="badge">Planned work</span>
+      </mat-card-actions>
+    </mat-card>
+    <mat-card class="stat-card warm">
+      <mat-card-header>
+        <mat-card-title>{{ stats().inProgress }}</mat-card-title>
+        <mat-card-subtitle>In Progress</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-actions>
+        <span class="badge">Active tasks</span>
+      </mat-card-actions>
+    </mat-card>
+    <mat-card class="stat-card success">
+      <mat-card-header>
+        <mat-card-title>{{ stats().done }}</mat-card-title>
+        <mat-card-subtitle>Done</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-actions>
+        <span class="badge">Completed</span>
+      </mat-card-actions>
+    </mat-card>
   </section>
 
   <section class="charts-grid">
-    <article class="chart-card">
-      <header>
-        <h3>Tasks by status</h3>
-        <p>Live status mix from your board.</p>
-      </header>
-      <div class="chart">
+    <mat-card class="chart-card">
+      <mat-card-header>
+        <mat-card-title>Tasks by status</mat-card-title>
+        <mat-card-subtitle>Live status mix from your board.</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content class="chart">
         <canvas
           baseChart
           [data]="statusChartData()"
           [type]="'doughnut'"
           [options]="doughnutOptions"
         ></canvas>
-      </div>
-    </article>
+      </mat-card-content>
+    </mat-card>
 
-    <article class="chart-card">
-      <header>
-        <h3>Tasks created this week</h3>
-        <p>Signals drive immediate updates.</p>
-      </header>
-      <div class="chart">
+    <mat-card class="chart-card">
+      <mat-card-header>
+        <mat-card-title>Tasks created this week</mat-card-title>
+        <mat-card-subtitle>Signals drive immediate updates.</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content class="chart">
         <canvas
           baseChart
           [data]="trendChartData()"
           [type]="'line'"
           [options]="lineOptions"
         ></canvas>
-      </div>
-    </article>
+      </mat-card-content>
+    </mat-card>
   </section>
 </section>

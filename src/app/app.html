@@ -1,61 +1,32 @@
-<div class="app-shell">
-  <aside class="sidebar">
+<mat-sidenav-container class="app-shell">
+  <mat-sidenav opened mode="side" class="sidebar">
     <div class="brand">
-      <span>PulseBoard</span>
-      <small>Signals first</small>
+      <span>Board</span>
     </div>
 
-    <nav>
+    <mat-nav-list>
       @for (item of nav; track item.path) {
-      <a [routerLink]="item.path" routerLinkActive="active"
+      <a mat-list-item [routerLink]="item.path" routerLinkActive="active"
         [routerLinkActiveOptions]="item.path === '/dashboard' ? { exact: true } : { exact: false }">
         {{ item.label }}
       </a>
       }
-    </nav>
+    </mat-nav-list>
 
     <div class="sidebar__footer">
-      <p>Angular 21 • Zoneless</p>
+      <p>Angular 21</p>
     </div>
-  </aside>
+  </mat-sidenav>
 
-  <main class="main">
-    <header class="topbar">
+  <mat-sidenav-content class="main">
+    <!-- <mat-toolbar>
       <div>
         <h2>Frontend Dashboard</h2>
-        <p>Signals-driven task management workspace.</p>
       </div>
-      <div class="topbar__actions">
-        <button class="btn ghost" type="button" (click)="openExportDialog()">Export</button>
-      </div>
-    </header>
+    </mat-toolbar> -->
 
     <section class="content">
       <router-outlet />
     </section>
-  </main>
-</div>
-
-@if (showExportDialog()) {
-<div class="modal-overlay" (click)="closeExportDialog()">
-  <div class="modal-dialog" (click)="$event.stopPropagation()">
-    <header class="modal-header">
-      <h3>Export Tasks</h3>
-      <button class="modal-close" type="button" (click)="closeExportDialog()" aria-label="Close">×</button>
-    </header>
-
-    <div class="modal-body">
-      <p>Download all your tasks in JSON format.</p>
-      <div class="export-actions">
-        <button class="btn primary" type="button" (click)="exportToJson()">
-          Export as JSON
-        </button>
-      </div>
-    </div>
-
-    <footer class="modal-footer">
-      <button class="btn ghost" type="button" (click)="closeExportDialog()">Cancel</button>
-    </footer>
-  </div>
-</div>
-}
+  </mat-sidenav-content>
+</mat-sidenav-container>

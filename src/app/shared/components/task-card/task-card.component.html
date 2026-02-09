@@ -1,29 +1,29 @@
 <article class="task-card">
   <header>
     <div>
-      <p class="title">{{ task.title }}</p>
+      <p class="title">{{ task().title }}</p>
       <p class="meta">
-        {{ statusLabels[task.status] }}
-        @if (task.priority) {
-        <span>• {{ task.priority }}</span>
+        {{ statusLabels[task().status] }}
+        @if (task().priority) {
+        <span [class]="'priority-' + task().priority">• {{ task().priority }}</span>
         }
       </p>
     </div>
     <button class="icon-btn" type="button" (click)="onEdit()">Edit</button>
   </header>
 
-  <p class="description">{{ task.description }}</p>
+  <p class="description">{{ task().description }}</p>
 
-  @if (task.tags?.length) {
+  @if (task().tags?.length) {
   <div class="tags">
-    @for (tag of task.tags; track tag) {
+    @for (tag of task().tags; track tag) {
     <span>{{ tag }}</span>
     }
   </div>
   }
 
   <footer>
-    <a class="link" [routerLink]="['/tasks', task.id]">Open details</a>
-    <button class="link danger" type="button" (click)="onRemove()">Delete</button>
+    <a class="icon-btn" [routerLink]="['/tasks', task().id]">Open details</a>
+    <button class="icon-btn danger" type="button" (click)="onRemove()">Delete</button>
   </footer>
 </article>

@@ -1,0 +1,67 @@
+<h2 mat-dialog-title>
+  {{ data.isEditing ? 'Edit Task' : 'New Task' }}
+</h2>
+<mat-dialog-content>
+  <p>Keep the status, priority, and description updated.</p>
+
+  <form [formGroup]="form">
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Title</mat-label>
+      <input matInput formControlName="title" placeholder="Add a short task title" />
+      @if (form.controls.title.touched && form.controls.title.invalid) {
+      <mat-error>
+        Title is required (max 80 characters).
+      </mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Status</mat-label>
+      <mat-select formControlName="status">
+        <mat-option value="todo">Todo</mat-option>
+        <mat-option value="in_progress">In Progress</mat-option>
+        <mat-option value="done">Done</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Priority</mat-label>
+      <mat-select formControlName="priority">
+        <mat-option value="low">Low</mat-option>
+        <mat-option value="medium">Medium</mat-option>
+        <mat-option value="high">High</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Tags</mat-label>
+      <mat-chip-grid #chipGrid aria-label="Enter tags" class="tags">
+        @for (tag of form.controls.tags.value; track tag) {
+        <mat-chip-row (removed)="removeTag(tag)" [editable]="true" (edited)="editTag(tag, $event)"
+          [aria-description]="'press enter to edit ' + tag">
+          {{tag}}
+          <button matChipRemove [attr.aria-label]="'remove ' + tag">
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-chip-row>
+        }
+        <input placeholder="New tag..." [matChipInputFor]="chipGrid"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="true"
+          (matChipInputTokenEnd)="addTag($event)" />
+      </mat-chip-grid>
+      <mat-hint>Max 15 characters per tag</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Description</mat-label>
+      <textarea matInput rows="3" formControlName="description"></textarea>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-flat-button color="primary" [disabled]="form.invalid" (click)="submit()">
+    {{ data.isEditing ? 'Save Changes' : 'Create Task' }}
+  </button>
+</mat-dialog-actions>

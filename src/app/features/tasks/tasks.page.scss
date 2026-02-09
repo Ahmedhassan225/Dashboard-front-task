@@ -3,82 +3,11 @@
   gap: 1.5rem;
 }
 
-.tasks__header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  gap: 1rem;
-
-  h1 {
-    margin: 0 0 0.35rem;
-    font-size: clamp(1.6rem, 2.4vw, 2.4rem);
-  }
-}
-
-.form-panel {
-  background: var(--surface);
-  border-radius: 1rem;
-  border: 1px solid var(--border);
-  padding: 1.4rem;
-  box-shadow: var(--shadow-sm);
-
-  header {
-    margin-bottom: 1rem;
-  }
-
-  h2 {
-    margin: 0 0 0.3rem;
-  }
-
-  p {
-    margin: 0;
-    color: var(--muted);
-  }
-}
-
-.grid {
-  display: grid;
-  gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-}
-
-.grid .wide {
-  grid-column: 1 / -1;
-}
-
 label {
   display: grid;
   gap: 0.4rem;
   font-size: 0.85rem;
   color: var(--muted);
-}
-
-input,
-select,
-textarea {
-  border: 1px solid var(--border);
-  border-radius: 0.6rem;
-  padding: 0.6rem 0.7rem;
-  font-size: 0.9rem;
-  font-family: inherit;
-  background: var(--surface);
-  color: var(--text);
-}
-
-textarea {
-  resize: vertical;
-}
-
-.error {
-  color: #dc2626;
-  font-size: 0.75rem;
-}
-
-.actions {
-  margin-top: 1rem;
-  display: flex;
-  justify-content: flex-end;
-  gap: 0.75rem;
 }
 
 .board {
@@ -88,35 +17,45 @@ textarea {
   align-items: start;
 }
 
-.column {
+.column-card {
   background: rgba(15, 23, 42, 0.02);
   border: 1px dashed rgba(148, 163, 184, 0.5);
   border-radius: 1rem;
-  padding: 0.8rem;
-  display: grid;
-  gap: 0.8rem;
-  min-height: 360px;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  --mat-card-padding: 0;
 
-  header {
+  mat-card-header {
+    padding: 1rem 1rem 0.5rem;
+    flex-shrink: 0;
+  }
+
+  mat-card-content {
+    padding: 0.5rem 1rem 1rem;
     display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    font-size: 0.85rem;
-    color: var(--muted);
-  }
+    flex-direction: column;
+    gap: 0.8rem;
+    overflow-y: auto;
 
-  h3 {
-    margin: 0;
-    color: var(--text);
-  }
-}
+    /* Custom scrollbar for better look */
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
 
-.dropzone {
-  display: grid;
-  gap: 0.8rem;
-  min-height: 280px;
-  transition: background 0.2s ease;
-  padding-bottom: 1rem;
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: rgba(148, 163, 184, 0.3);
+      border-radius: 3px;
+
+      &:hover {
+        background: rgba(148, 163, 184, 0.5);
+      }
+    }
+  }
 }
 
 .dropzone.cdk-drop-list-dragging {
@@ -127,13 +66,6 @@ textarea {
 .drag-item {
   display: grid;
   gap: 0.4rem;
-}
-
-.drag-handle {
-  font-size: 0.65rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--muted);
   cursor: grab;
 }
 
@@ -143,11 +75,3 @@ textarea {
   border: 2px dashed rgba(124, 58, 237, 0.4);
   background: rgba(124, 58, 237, 0.08);
 }
-
-@media (max-width: 720px) {
-  .tasks__header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-}
-
