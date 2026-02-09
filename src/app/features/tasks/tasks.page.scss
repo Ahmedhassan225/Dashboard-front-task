@@ -58,6 +58,10 @@ label {
   }
 }
 
+.mat-mdc-card-content.dropzone {
+  height: 100%;
+}
+
 .dropzone.cdk-drop-list-dragging {
   background: rgba(124, 58, 237, 0.08);
   border-radius: 0.8rem;
