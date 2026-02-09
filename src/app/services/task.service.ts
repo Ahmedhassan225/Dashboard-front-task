@@ -18,11 +18,8 @@ function loadFromStorage(): Task[] | null {
 }
 
 function saveToStorage(tasks: Task[]): void {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
-  } catch {
-    // Ignore storage errors (e.g. private mode)
-  }
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+
 }
 
 @Injectable({ providedIn: 'root' })
